@@ -1,0 +1,41 @@
+{
+	"rehabs":
+    [
+        {
+            "name":"Terre Rouge Health Centre A1,Port Louis",
+            "latitude":"-20.128209",
+            "longitude":"57.531467"
+        },
+
+        {
+            "name":"Flamboyant Rehabilitation Centre B39,Triolet",
+            "latitude":"-20.080035",
+            "longitude":"57.543229"
+        },
+
+        {
+            "name":"Global Rainbow Foundation Rehabilitation Center",
+            "latitude":"-20.022418",
+            "longitude":"57.617995"
+        },
+
+        {
+            "name":"Clinique Fortis Darne- La Croisette Grand baie",
+            "latitude":"-20.021973",
+            "longitude":"57.580035"
+        },
+
+        {
+            "name":"Les Mariannes Wellness Santuary Royal Road, New Congomah Rd",
+            "latitude":"-20.157314",
+            "longitude":"57.590120"
+        },
+
+        {
+            "name":"Rehabilitation Youth Centre Beau Bassin-Rose Hill",
+            "latitude":"-20.128209",
+            "longitude":"57.531467"
+        },
+        
+	]
+}

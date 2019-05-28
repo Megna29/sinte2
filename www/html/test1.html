@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css" />
+<script src="../js/jquery-1.11.1.min.js"></script>
+<script src="../js/jquery.mobile-1.4.5.min.js"></script>
+<script src="../js/call.js"></script>
+
+
+
+<script type="text/javascript">
+function onSuccess(result){
+  console.log("Success:"+result);
+}
+
+function onError(result) {
+  console.log("Error:"+result);
+}
+
+function onCall(){
+
+	var num = 59215977;
+	window.plugins.CallNumber.callNumber(onSuccess, onError, num, true);
+
+}
+
+function selectitems(query, succ_fun) {
+    db.transaction(function (tx) {
+        tx.executeSql(query, [], function (tx, result) {
+            eval(succ_fun)(result.rows);
+        });
+    });
+}
+
+function ta(){
+var query = "select Enumber from E_contact";
+selectitems(query, getval_success);
+function getval_success(result) {
+    if (result.length=1) {
+      
+            item = result.item(0);
+            var demo = item['Enumber'];
+           //alert (demo);
+        }
+
+    }
+
+  window.plugins.CallNumber.callNumber(onSuccess, onError, demo, true);
+
+}
+function ba(){
+var query = "select Enumber from E_contact";
+selectitems(query, getval_success);
+function getval_success(result) {
+    if (result.length=1) {
+      
+            item = result.item(0);
+            var demo = item['Enumber'];
+           //alert (demo);
+            window.plugins.CallNumber.callNumber(onSuccess, onError, demo, true);
+        }
+
+    }
+
+
+
+}
+
+</script>
+
+
+<script type="text/javascript" src="cordova.js"></script>
+
+</head>
+<body>
+
+	
+<div data-role="page" id="pageone" data-theme='b'>
+ <div data-role="header">
+  <h1>Phone Call</h1>
+                <div data-role="navbar">
+                <ul>
+                    <li><a href="#pageone" class="ui-btn-active ui-state-persist" data-icon="phone">Call </a></li>
+                    <li><a href="#pagetwo"   data-icon ="user">Add emergency contact</a></li>
+                  </ul>
+              </div>
+ </div>
+ <div data-role="main" class="ui-content">
+
+  <button class="ui-btn" onclick="onCall()";">Emergency Call</button>
+ 
+ </div>
+  <h1 id="v01"></h1>
+ <div data-role="footer">																			
+ <h1>Emergency</h1>
+ </div>
+</div>
+ 
+              <div data-role="page" id="pagetwo">
+                  <div data-role="header">
+               <h1>Add an emergency contact</h1>
+              <div data-role="navbar">
+                <ul>
+                    <li><a href="#pageone" data-icon="phone">Call</a></li>
+                    <li><a href="#pagetwo"  class="ui-btn-active ui-state-persist" data-icon ="user" >Add Emergency contact</a></li>
+                  </ul>
+              </div>
+            </div>
+            <div data-role="main" class="ui-content">
+                <form>
+
+                    <label for="num">Enter emergency contact number </label>
+                      <input type="number" name="num" id="Enumber">
+                      <input type="submit" value="Save" id="submitButton" >
+                    
+               </form>
+            </div>
+            <div/ data-role="footer">
+        <h1>Emergency</h1>
+      </div>
+    </div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+	   
+</script>

@@ -1,0 +1,792 @@
+<! DOCTYPE html>
+<html>
+<head>
+    <title>Mobileapp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="jquerymobile/jquery.mobile-1.4.5.css">
+    <script src="jquerymobile/jquery.js"></script>
+    <script src="jquerymobile/jquery.mobile-1.4.5.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+
+    <link href="css/menu.css" rel="stylesheet">
+
+    <!-- Load  Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+    integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+    crossorigin=""></script>
+
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@2.2.4/dist/esri-leaflet.js"
+    integrity="sha512-tyPum7h2h36X52O2gz+Pe8z/3l+Y9S1yEUscbVs5r5aEY5dFmP1WWRY/WLLElnFHa+k1JBQZSCDGwEAnm2IxAQ=="
+    crossorigin=""></script>
+
+
+    <!-- Load Esri Leaflet Geocoder from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.css"
+    integrity="sha512-v5YmWLm8KqAAmg5808pETiccEohtt8rPVMGQ1jA6jqkWVydV5Cuz3nJ9fQ7ittSxvuqsvI9RSGfVoKPaAJZ/AQ=="
+    crossorigin="">
+    <script src="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.js"
+    integrity="sha512-zdT4Pc2tIrc6uoYly2Wp8jh6EPEWaveqqD3sT0lf5yei19BC1WulGuh5CesB0ldBKZieKGD7Qyf/G0jdSe016A=="
+    crossorigin=""></script>
+
+    <script>
+
+    // setTimeout(function()
+    // {
+    //      alert("It's time to drink water");
+    //
+    // }, 10000);
+
+      setInterval(function()
+      {
+          alert("It's time to drink water");
+           //30min
+      }, 1800000);
+
+      setInterval(function()
+      {
+          alert("Its time to eat fruits");
+
+      }, 7200000);
+
+      //2hrs
+
+
+
+
+    </script>
+
+    <style type="text/css">
+     div#load_screen
+     {
+         background:#000;
+         opacity:1;
+         position:fixed;
+         z-index: 10;
+         top: 0px;
+         width: 100%;
+         height: 1600px;
+     }
+
+     div#load_screen>div#loading
+     {
+            width: 50%;
+            height: 50%;
+            margin-left: 25%;
+            margin-top: 55%;
+     }
+
+    </style>
+
+    <script>
+
+     window.addEventListener("load",function()
+     {
+            var load_screen = document.getElementById("load_screen");
+            var page = document.getElementById("page1");
+
+
+            setTimeout(function()
+            {
+                page.removeChild(load_screen);
+            }, 2000);
+     });
+    </script>
+
+
+</head>
+
+<body>
+
+    <!-- page 1 -->
+    <div data-role="page" id="page1" data-theme="b">
+
+        <div id="load_screen">
+            <div id="loading"><img src="img/no.png"></div>
+        </div>
+
+
+        <div data-role ="panel" id="menu" data-display="overlay" data-position="left">
+            <div data-role="controlgroup" data-corner="false">
+                <a href="#page1" data-icon="home" data-role="button">Home</a>
+                <a href="#page2" data-icon="location" data-role="button">Center</a>
+                <a href="#page3" data-icon="heart" data-role="button">Treatment</a>
+                <a href="html/alcoholdb.html" data-icon="star" data-role="button" rel="external">Money Tracker</a>
+                <a href="html/test1.html" data-icon="phone" data-role="button" rel="external">Emergency Calls</a>
+                <a href="#" data-icon="delete" data-rel="close" data-role="button">Exit</a>
+            </div>
+        </div>
+
+        <div data-role="header" id="header">
+            <a id="menu-button" data-icon="bars"  class="ui-btn-left" style="margin-top:10px;" href="#menu">Menu</a>
+        </div>
+        <div>
+            <img id="carousel"/>
+        </div>
+
+
+        <div data-role="main" class="ui-content">
+            <h3>Why quit alcohol?</h3>
+            <ul>
+                <li>More productive and creative</li>
+                <li>Higher confidence</li>
+                <li>Freedom from alcohol slavery</li>
+                <li>Clear mind</li>
+                <li>Less depression & less anger</li>
+                <li>More healthy</li>
+                <li>Get rid of bad habits</li>
+            </ul>
+        </div>
+
+
+        <div data-role="footer">
+            <h1>Copyright@Alcohol_Addiction</h1>
+        </div>
+
+    </div>
+    <!-- page 1 end -->
+
+    <!-- page 2 search center -->
+
+    <div data-role="page" id="page2" data-theme="b">
+
+        <div data-role ="panel" id="menu2" data-display="overlay" data-position="left">
+            <div data-role="controlgroup">
+                <a href="#page1" data-icon="home" data-role="button" rel="external">Home</a>
+                <a href="#page2" data-icon="location" data-role="button">Center</a>
+                <a href="#page3" data-icon="heart" data-role="button">Treatment</a>
+                <a href="html/alcoholdb.html" data-icon="star" data-role="button" rel="external">Money Tracker</a>
+                <a href="#" data-icon="phone" data-role="button">Emergency Calls</a>
+                <a href="#" data-icon="delete" data-rel="close" data-role="button">Exit</a>
+            </div>
+        </div>
+
+        <div data-role="header" id="header">
+            <a id="menu-button" data-icon="bars"  class="ui-btn-left" style="margin-top:10px;" href="#menu2">Menu</a>
+        </div>
+
+
+
+        <div data-role="main" class="ui-content">
+
+            <a href="#" id="SearchCenter" class="ui-btn">View nearby Centres</a>
+
+            <div id="map" style="width:300px; height:300px;"></div>
+
+        </div>
+
+
+        <div data-role="footer">
+            <h3>Copyright@Alcohol_Addiction</h1>
+        </div>
+
+    </div>
+
+ <!-- page 2 end -->
+
+
+ <!-- page 3 treatment-->
+
+ <div data-role="page" id="page3" data-theme="b">
+
+     <div data-role ="panel" id="menu3" data-display="overlay" data-position="left">
+         <div data-role="controlgroup">
+             <a href="#page1" data-icon="home" data-role="button">Home</a>
+             <a href="#page2" data-icon="location" data-role="button">Center</a>
+             <a href="#page3" data-icon="heart" data-role="button">Treatment</a>
+             <a href="html/alcoholdb.html" data-icon="star" data-role="button" rel="external">Money Tracker</a>
+             <a href="#" data-icon="phone" data-role="button">Emergency Calls</a>
+             <a href="#" data-icon="delete" data-rel="close" data-role="button">Exit</a>
+         </div>
+     </div>
+
+     <div data-role="header" id="header">
+         <a id="menu-button" data-icon="bars"  class="ui-btn-left" style="margin-top:10px;" href="#menu3">Menu</a>
+     </div>
+
+     <div data-role="main" class="ui-content">
+
+         <h3>What to do?</h3>
+         <div id="b">
+
+         <div class="a">
+             <a href="#page4" class="treatmenu" data-transition="flip">
+                 Cold Showers<br>
+                 <img src="img/bath.jpg" style="width:110px;max-height:100px">
+             </a>
+         </div>
+
+         <div class="a">
+             <a href="#page5" class="treatmenu" data-transition="flip">
+                 Eat healthy<br>
+                 <img src="img/fruit.jpg" style="width:110px;height:73px">
+             </a>
+         </div>
+
+         <div class="a">
+             <a href="#page6" class="treatmenu" data-transition="flip">
+                 Good Sleep<br>
+                 <img src="img/sleep.jpg" style="width:110px;max-height:100px">
+             </a>
+         </div>
+
+         <div class="a">
+             <a href="#page7" class="treatmenu" data-transition="flip">
+                 Relax<br>
+                 <img src="img/relax.jpg" style="width:110px;max-height:100px">
+             </a>
+         </div>
+
+         <div class="a">
+             <a href="#page8" class="treatmenu" data-transition="flip">
+                 Do Sport<br>
+                 <img src="img/sport.jpg" style="width:110px;height:73px">
+             </a>
+         </div>
+
+         <div class="a">
+             <a href="#page9" class="treatmenu" data-transition="flip">
+                 Keep busy<br>
+                 <img src="img/busy.png" style="width:110px;max-height:100px">
+             </a>
+         </div>
+
+         <div class="a">
+             <a href="#page10" class="treatmenu" data-transition="flip">
+                 Vitamin D<br>
+                 <img src="img/day.jpeg" style="width:110px;max-height:100px">
+             </a>
+         </div>
+
+         <div class="a">
+             <a href="#page11" class="treatmenu" data-transition="flip">
+                 Gratitude<br>
+                 <img src="img/grate.jpg" style="width:110px;height:73px">
+             </a>
+         </div>
+
+         <div class="a">
+             <a href="#page12" class="treatmenu" data-transition="flip">
+                 Let go<br>
+                 <img src="img/foe.jpg" style="width:110px;height:73px">
+             </a>
+         </div>
+
+         </div>
+
+
+
+
+
+     </div>
+
+
+     <div data-role="footer">
+         <h3>Copyright@Alcohol_Addiction</h1>
+     </div>
+
+ </div>
+
+ <!-- end of page 3 treament -->
+
+ <!-- page 4 treament  cold showers-->
+
+ <div data-role="page" id="page4" data-theme="b">
+
+     <div data-role ="panel" id="menu4" data-display="overlay" data-position="left">
+         <div data-role="controlgroup">
+             <a href="#page1" data-icon="home" data-role="button" rel="external">Home</a>
+             <a href="#page2" data-icon="location" data-role="button">Center</a>
+             <a href="#page3" data-icon="heart" data-role="button">Treatment</a>
+             <a href="html/alcoholdb.html" data-icon="star" data-role="button" rel="external">Money Tracker</a>
+             <a href="#" data-icon="phone" data-role="button">Emergency Calls</a>
+             <a href="#" data-icon="delete" data-rel="close" data-role="button">Exit</a>
+         </div>
+     </div>
+
+     <div data-role="header" id="header">
+         <a id="menu-button" data-icon="bars"  class="ui-btn-left" style="margin-top:10px;" href="#menu4">Menu</a>
+     </div>
+
+     <div data-role="main" class="ui-content">
+
+         <div class="treat1">
+
+             <h2>Cold Showers</h2>
+
+             <p>
+                 <strong>Cold water</strong> therapy  has many health benefits.
+                 A gentle form of stress that leads to <strong>thermogenesis</strong>
+                 (internal generation of body heat),with turn on better immunity,enchance
+                 stress tolerance, anti depression and anti chronic fatigue syndrome.
+                 <br/><br/>
+                 It also helps a lot to improve your <strong>willpower</strong>.<br/><br/>
+
+                 Also avoid sitting in hot tubs or jacuzzis for extended periods of time.
+
+             </p>
+
+             <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-back" data-rel="back">Back<a>
+             </div>
+
+
+
+     </div>
+
+
+     <div data-role="footer">
+         <h3>Copyright@Alcohol_Addiction</h1>
+     </div>
+
+ </div>
+
+  <!-- end of page 4 treatment cold showers -->
+
+
+  <!-- page 5 treament eat healthy -->
+
+  <div data-role="page" id="page5" data-theme="b">
+
+      <div data-role ="panel" id="menu5" data-display="overlay" data-position="left">
+          <div data-role="controlgroup">
+              <a href="#page1" data-icon="home" data-role="button" rel="external">Home</a>
+              <a href="#page2" data-icon="location" data-role="button">Center</a>
+              <a href="#page3" data-icon="heart" data-role="button">Treatment</a>
+              <a href="html/alcoholdb.html" data-icon="star" data-role="button" rel="external">Money Tracker</a>
+              <a href="#" data-icon="phone" data-role="button">Emergency Calls</a>
+              <a href="#" data-icon="delete" data-rel="close" data-role="button">Exit</a>
+          </div>
+      </div>
+
+      <div data-role="header" id="header">
+          <a id="menu-button" data-icon="bars"  class="ui-btn-left" style="margin-top:10px;" href="#menu5">Menu</a>
+      </div>
+
+      <div data-role="main" class="ui-content">
+
+          <div class="treat1">
+
+              <h2>Light Fasting</h2>
+
+              <p>
+                  Concentrate food intake during an 8-hour window during daylight
+                  hours.A 16-hour fast leading to lower blood sugar and insulin
+                  levels,and the more intense hormonal response to food, will accentuate
+                  the diumal rhythm.<br><br>
+
+                  Overweight men are more likely to have low self esteem to
+                  begin with.<br><br>
+
+                  <strong>Avoid procesed foods in your local store,sugary foods and junk foods,
+                  go instead for fresh vegetables and fruits and naturlly growth meat and fish,
+                  Your body and mind will notice your improved diet in a couple of weeks.</strong>
+
+
+
+              </p>
+
+              <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-back" data-rel="back">Back<a>
+              </div>
+
+
+
+      </div>
+
+
+      <div data-role="footer">
+          <h3>Copyright@Alcohol_Addiction</h1>
+      </div>
+
+  </div>
+
+  <!-- page 5 end treament healthy -->
+
+  <!-- page 6 goodsleep -->
+
+  <div data-role="page" id="page6" data-theme="b">
+
+      <div data-role ="panel" id="menu6" data-display="overlay" data-position="left">
+          <div data-role="controlgroup">
+              <a href="#page1" data-icon="home" data-role="button" rel="external">Home</a>
+              <a href="#page2" data-icon="location" data-role="button">Center</a>
+              <a href="#page3" data-icon="heart" data-role="button">Treatment</a>
+              <a href="html/alcoholdb.html" data-icon="star" data-role="button" rel="external">Money Tracker</a>
+              <a href="#" data-icon="phone" data-role="button">Emergency Calls</a>
+              <a href="#" data-icon="delete" data-rel="close" data-role="button">Exit</a>
+          </div>
+      </div>
+
+      <div data-role="header" id="header">
+          <a id="menu-button" data-icon="bars"  class="ui-btn-left" style="margin-top:10px;" href="#menu6">Menu</a>
+      </div>
+
+      <div data-role="main" class="ui-content">
+
+          <div class="treat1">
+
+              <h2>Good Sleep</h2>
+
+              <p>
+                  Aim for 8 hours of sleep every night.Your bedroom should be
+                  dark,quiet,and cool.At least 30 minutes before bed,do something
+                  relaxing. Healers suggests a cup of herbal tea,a shower,or
+                  reading in a low-lit room.
+
+              </p>
+
+              <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-back" data-rel="back">Back<a>
+              </div>
+
+
+
+      </div>
+
+
+      <div data-role="footer">
+          <h3>Copyright@Alcohol_Addiction</h1>
+      </div>
+
+  </div>
+
+  <!-- end of page 6 -->
+
+  <!-- page 7 relax -->
+
+  <div data-role="page" id="page7" data-theme="b">
+
+      <div data-role ="panel" id="menu7" data-display="overlay" data-position="left">
+          <div data-role="controlgroup">
+              <a href="#page1" data-icon="home" data-role="button" rel="external">Home</a>
+              <a href="#page2" data-icon="location" data-role="button">Center</a>
+              <a href="#page3" data-icon="heart" data-role="button">Treatment</a>
+              <a href="html/alcoholdb.html" data-icon="star" data-role="button" rel="external">Money Tracker</a>
+              <a href="#" data-icon="phone" data-role="button">Emergency Calls</a>
+              <a href="#" data-icon="delete" data-rel="close" data-role="button">Exit</a>
+          </div>
+      </div>
+
+      <div data-role="header" id="header">
+          <a id="menu-button" data-icon="bars"  class="ui-btn-left" style="margin-top:10px;" href="#menu7">Menu</a>
+      </div>
+
+      <div data-role="main" class="ui-content">
+
+          <div class="treat1">
+
+              <h2>Relax and No Stress</h2>
+
+              <p>
+                  Stress can impact hormones,particularly the testosterone that
+                  gives men their decidely male characteristics, such as
+                  muscle mass, body hair, and a deep voice.
+
+              </p>
+
+              <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-back" data-rel="back">Back<a>
+              </div>
+
+
+
+      </div>
+
+
+      <div data-role="footer">
+          <h3>Copyright@Alcohol_Addiction</h1>
+      </div>
+
+  </div>
+
+  <!-- end of page 7 -->
+
+  <!-- page 8 sport -->
+
+  <div data-role="page" id="page8" data-theme="b">
+
+      <div data-role ="panel" id="menu8" data-display="overlay" data-position="left">
+          <div data-role="controlgroup">
+              <a href="#page1" data-icon="home" data-role="button" rel="external">Home</a>
+              <a href="#page2" data-icon="location" data-role="button">Center</a>
+              <a href="#page3" data-icon="heart" data-role="button">Treatment</a>
+              <a href="html/alcoholdb.html" data-icon="star" data-role="button" rel="external">Money Tracker</a>
+              <a href="#" data-icon="phone" data-role="button">Emergency Calls</a>
+              <a href="#" data-icon="delete" data-rel="close" data-role="button">Exit</a>
+          </div>
+      </div>
+
+      <div data-role="header" id="header">
+          <a id="menu-button" data-icon="bars"  class="ui-btn-left" style="margin-top:10px;" href="#menu8">Menu</a>
+      </div>
+
+      <div data-role="main" class="ui-content">
+
+          <div class="treat1">
+
+              <h2>Good Sleep</h2>
+
+              <p>
+                  Doing sport in your free time is one of the best things
+                  you can do in your life to improve your wellbeing,also it
+                  keep you focus on more constructive matters.
+              </p>
+
+              <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-back" data-rel="back">Back<a>
+              </div>
+
+
+
+      </div>
+
+
+      <div data-role="footer">
+          <h3>Copyright@Alcohol_Addiction</h1>
+      </div>
+
+  </div>
+<!-- end of page 8 -->
+
+
+<!-- page 9 keep busy -->
+
+<div data-role="page" id="page9" data-theme="b">
+
+    <div data-role ="panel" id="menu9" data-display="overlay" data-position="left">
+        <div data-role="controlgroup">
+            <a href="#page1" data-icon="home" data-role="button" rel="external">Home</a>
+            <a href="#page2" data-icon="location" data-role="button">Center</a>
+            <a href="#page3" data-icon="heart" data-role="button">Treatment</a>
+            <a href="html/alcoholdb.html" data-icon="star" data-role="button" rel="external">Money Tracker</a>
+            <a href="#" data-icon="phone" data-role="button">Emergency Calls</a>
+            <a href="#" data-icon="delete" data-rel="close" data-role="button">Exit</a>
+        </div>
+    </div>
+
+    <div data-role="header" id="header">
+        <a id="menu-button" data-icon="bars"  class="ui-btn-left" style="margin-top:10px;" href="#menu9">Menu</a>
+    </div>
+
+    <div data-role="main" class="ui-content">
+
+        <div class="treat1">
+
+            <h2>Keep Busy</h2>
+
+            <p>
+                Doing any hobbies or activities you enjoy doing that improves
+                your overall feeling about yourself.
+            </p>
+
+            <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-back" data-rel="back">Back<a>
+            </div>
+
+
+
+    </div>
+
+
+    <div data-role="footer">
+        <h3>Copyright@Alcohol_Addiction</h1>
+    </div>
+
+</div>
+<!-- page 9 end -->
+
+<!-- page 10 Go OUT -->
+
+<div data-role="page" id="page10" data-theme="b">
+
+    <div data-role ="panel" id="menu10" data-display="overlay" data-position="left">
+        <div data-role="controlgroup">
+            <a href="#page1" data-icon="home" data-role="button" rel="external">Home</a>
+            <a href="#page2" data-icon="location" data-role="button">Center</a>
+            <a href="#page3" data-icon="heart" data-role="button">Treatment</a>
+            <a href="html/alcoholdb.html" data-icon="star" data-role="button" rel="external">Money Tracker</a>
+            <a href="#" data-icon="phone" data-role="button">Emergency Calls</a>
+            <a href="#" data-icon="delete" data-rel="close" data-role="button">Exit</a>
+        </div>
+    </div>
+
+    <div data-role="header" id="header">
+        <a id="menu-button" data-icon="bars"  class="ui-btn-left" style="margin-top:10px;" href="#menu10">Menu</a>
+    </div>
+
+    <div data-role="main" class="ui-content">
+
+        <div class="treat1">
+
+            <h2>Go Out</h2>
+
+            <p>
+                Vitamin D is a fat-soluble steroid hormone precursor that you
+                get primarily from  from either sun exposure or supplementation
+                and will improve your overall hormone levels and well being.A
+                very small amount comes from a few foods we eat.Getting enough
+                sunlight can also help you to sleep better at night. These things
+                can help your body heal itself, and improve metabolism,
+                body temperature,energy and Overall well-being.
+
+                Whenever is not possible to get sunlight you can always use
+                a vitamin D3 supplment.
+
+            </p>
+
+            <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-back" data-rel="back">Back<a>
+            </div>
+
+
+
+    </div>
+
+
+    <div data-role="footer">
+        <h3>Copyright@Alcohol_Addiction</h1>
+    </div>
+
+</div>
+<!-- page 10 end -->
+
+<!-- page 11 gratitude -->
+
+<div data-role="page" id="page11" data-theme="b">
+
+    <div data-role ="panel" id="menu11" data-display="overlay" data-position="left">
+        <div data-role="controlgroup">
+            <a href="#page1" data-icon="home" data-role="button" rel="external">Home</a>
+            <a href="#page2" data-icon="location" data-role="button">Center</a>
+            <a href="#page3" data-icon="heart" data-role="button">Treatment</a>
+            <a href="html/alcoholdb.html" data-icon="star" data-role="button" rel="external">Money Tracker</a>
+            <a href="#" data-icon="phone" data-role="button">Emergency Calls</a>
+            <a href="#" data-icon="delete" data-rel="close" data-role="button">Exit</a>
+        </div>
+    </div>
+
+    <div data-role="header" id="header">
+        <a id="menu-button" data-icon="bars"  class="ui-btn-left" style="margin-top:10px;" href="#menu11">Menu</a>
+    </div>
+
+    <div data-role="main" class="ui-content">
+
+        <div class="treat1">
+
+            <h2>Gratitude</h2>
+
+            <p>
+                Be Grateful for the small things in your daily life,even the ones
+                you take for granted,be grateful for all things,specially the
+                things that taught you something important.
+
+                Being gratefulopens the door to more good things in life.
+
+                You can start now by being grateful for the little things around
+                you.
+
+            </p>
+
+            <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-back" data-rel="back">Back<a>
+            </div>
+
+
+
+    </div>
+
+
+    <div data-role="footer">
+        <h3>Copyright@Alcohol_Addiction</h1>
+    </div>
+
+</div>
+<!-- page 11 end -->
+
+<!-- page 12 let go -->
+<div data-role="page" id="page12" data-theme="b">
+
+    <div data-role ="panel" id="menu12" data-display="overlay" data-position="left">
+        <div data-role="controlgroup">
+            <a href="#page1" data-icon="home" data-role="button" rel="external">Home</a>
+            <a href="#page2" data-icon="location" data-role="button">Center</a>
+            <a href="#page3" data-icon="heart" data-role="button">Treatment</a>
+            <a href="html/alcoholdb.html" data-icon="star" data-role="button" rel="external">Money Tracker</a>
+            <a href="#" data-icon="phone" data-role="button">Emergency Calls</a>
+            <a href="#" data-icon="delete" data-rel="close" data-role="button">Exit</a>
+        </div>
+    </div>
+
+    <div data-role="header" id="header">
+        <a id="menu-button" data-icon="bars"  class="ui-btn-left" style="margin-top:10px;" href="#menu12">Menu</a>
+    </div>
+
+    <div data-role="main" class="ui-content">
+
+        <div class="treat1">
+
+            <h2>Let go</h2>
+
+            <p>
+                Let go of unhealthy emotions,people,and memories.When we learn
+                to let go of the baggage that we don't need to carry, we create
+                space and energy for new and better opportunities.
+
+                Stop being the victim and blaming others.
+                Let go of past experiences that hold you back.Hold to the good
+                ones, Focus on What You Desire.
+                Focus on the present,here and now,and joy.
+                Forgive them and yourself.
+
+            </p>
+
+            <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-back" data-rel="back">Back<a>
+            </div>
+
+
+
+    </div>
+
+
+    <div data-role="footer">
+        <h3>Copyright@Alcohol_Addiction</h1>
+    </div>
+
+</div>
+<!-- page 12 end -->
+
+<!-- page 13 Emergency call -->
+<div data-role="page" id="page13" data-theme="b">
+
+    <div data-role ="panel" id="menu13" data-display="overlay" data-position="left">
+        <div data-role="controlgroup">
+            <a href="#page1" data-icon="home" data-role="button" rel="external">Home</a>
+            <a href="#page2" data-icon="location" data-role="button">Center</a>
+            <a href="#page3" data-icon="heart" data-role="button">Treatment</a>
+            <a href="html/alcoholdb.html" data-icon="star" data-role="button" rel="external">Money Tracker</a>
+            <a href="#" data-icon="phone" data-role="button">Emergency Calls</a>
+            <a href="#" data-icon="delete" data-rel="close" data-role="button">Exit</a>
+        </div>
+    </div>
+
+    <div data-role="header" id="header">
+        <a id="menu-button" data-icon="bars"  class="ui-btn-left" style="margin-top:10px;" href="#menu13">Menu</a>
+    </div>
+
+    <div data-role="main" class="ui-content">
+
+        phone
+
+    </div>
+
+
+    <div data-role="footer">
+        <h3>Copyright@Alcohol_Addiction</h1>
+    </div>
+
+</div>
+<!-- page 13 end -->
+
+    <script src="js/app.js"></script>
+    <script src="js/map.js"></script>
+
+
+</body>
+</html>

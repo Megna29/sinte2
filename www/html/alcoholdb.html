@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LocalStorage using db</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="../jquerymobile/jquery.mobile-1.4.5.css">
+<script src="../jquerymobile/jquery.js"></script>
+<script src="../jquerymobile/jquery.mobile-1.4.5.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+
+<link href="../css/menu.css" rel="stylesheet">
+
+<script type="text/javascript">
+
+
+document.addEventListener("deviceready",onDeviceReady,false);
+
+var db;
+ db = window.openDatabase("Addictionss","1.0","Cordova Demo", 2*1024*1024);
+ //name of database- 1st parameter
+ //2nd parameter is the version
+ // 3rd parameter - explaining
+ //4th parameter - size of database 2MB
+
+function onDeviceReady()
+{
+    db.transaction(createDB, errorCB, successCB);
+}
+
+
+function createDB(tx)
+{
+   //tx.executeSql('DROP TABLE IF EXISTS DEMO');
+   tx.executeSql('CREATE TABLE IF NOT EXISTS ALCOHOL(today TEXT, feeling TEXT, drink TEXT, money TEXT,timeSpent TEXT )');
+
+}
+
+function errorCB(err)
+{
+    alert("error processing SQL: "+err.code);
+}
+
+function successCB()
+{
+    // alert("Database & Table Created");
+}
+
+function insertDB(tx){
+
+    var _dat=$("[name='inputDate']").val();
+    var _feel=$("[name='feel']").val();
+    var _choose = $("[name='choose']").val();
+    var _expense=$("[name='expense']").val();
+    var _spend=$("[name='spend']").val();
+
+    var sql='INSERT INTO ALCOHOL(today,feeling,drink,money,timeSpent) VALUES (?,?,?,?,?)';
+
+    tx.executeSql(sql, [_dat,_feel,_choose,_expense,_spend], successQueryDB, errorCB);
+
+    //1st-paramater - sql statement
+    //2nd-parameter - an array to store our variable
+
+}
+
+function successQueryDB(tx)
+{
+     //alert("insert successfully");
+    tx.executeSql("SELECT * FROM ALCOHOL",[], renderList, errorCB);
+}
+
+function renderList(tx, results)
+{
+    var htmlString = ' ';
+    var len = results.rows.length;
+    for(var i=0; i<len;i++)
+    {
+        htmlString+='<li>'+'Date: '+results.rows.item(i).today+'<br>'+'Money Spent: '+results.rows.item(i).money+'<br>'+'Time wasted: '+results.rows.item(i).timeSpent+'<br><br>'+'You could save Rs. '+results.rows.item(i).money+'</li>';
+    }
+
+    $('#resultView').html(htmlString);
+    $('#resultView').listview('refresh');
+}
+
+function submitFormdb()
+{
+
+    db.transaction(insertDB, errorCB);
+    $.mobile.changePage("#page2",{ reverse:false, transition:"slide"});
+
+
+    return false;
+}
+</script>
+
+</head>
+<body>
+
+    <!-- page1 -->
+    <div data-role="page" id="page1" data-theme="b">
+
+        <div data-role ="panel" id="menu" data-display="overlay" data-position="left">
+            <div data-role="controlgroup">
+                <a href="../index.html" data-icon="home" data-role="button" rel="external">Home</a>
+                <a href="../index.html#page2" data-icon="location" data-role="button" rel="external">Center</a>
+                <a href="../index.html#page3" data-icon="heart" data-role="button" rel="external">Treatment</a>
+                <a href="#" data-icon="user" data-role="button">Money Tracker</a>
+                <a href="#" data-icon="phone" data-role="button">Emergency Calls</a>
+                <a href="#" data-icon="delete" data-rel="close" data-role="button">Exit</a>
+            </div>
+        </div>
+
+        <div data-role="header" id="header">
+            <a id="menu-button" data-icon="bars"  class="ui-btn-left" style="margin-top:10px;" href="#menu">Menu</a>
+        </div>
+
+        <div data-role="main" class="ui-content">
+
+            <strong style="text-align:center">Keep track of your daily addiction</strong><br><br>
+
+            <form action="POST" onsubmit="return submitFormdb()" id="myForm" data-ajax="false">
+
+
+                <label for="inputDate">Enter today's Date(DD-MON-YY)</label>
+                <input type="text" name="inputDate" placeholder="Today Date(DD-MON-YY)" required>
+
+                <label for="feel">How are you feeling today?</label>
+                <select name="feel" style="width:100%">
+
+                    <option value="Good">Good</option>
+                    <option value="Very Good">Very Good</option>
+                    <option value="Bad">Bad</option>
+                    <option value="Very Bad">Very Bad</option>
+
+                </select>
+
+                <label for="choose">Did you drink today?</label>
+                <select name="choose" style="width:100%">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+
+                <label for="expense">How much money did you spend on drink today?</label>
+                <input type="number" name="expense" placeholder="Money" required>
+
+                <label for="spend">How much time did you spend on drink today?<label>
+                <input type="text" name="spend" placeholder="1h or 2h etc" required>
+
+                <input type="submit" value="Submit" onclick="onDeviceReady()">
+
+
+            </form>
+
+
+
+        </div>
+
+
+        <div data-role="footer">
+            <h3>Alcohol_Addiction@Copyright</h1>
+        </div>
+
+    </div>
+    <!-- end of page1 -->
+
+    <!-- page2 -->
+
+    <div data-role="page" id="page2" data-theme="b">
+
+        <div data-role ="panel" id="menu2" data-display="overlay" data-position="left">
+            <div data-role="controlgroup">
+                <a href="../index.html" data-icon="home" data-role="button" rel="external">Home</a>
+                <a href="../index.html#page2" data-icon="location" data-role="button" rel="external">Center</a>
+                <a href="../index.html#page3" data-icon="heart" data-role="button" rel="external">Treatment</a>
+                <a href="#" data-icon="user" data-role="button">Money Tracker</a>
+                <a href="#" data-icon="phone" data-role="button">Emergency Calls</a>
+                <a href="#" data-icon="delete" data-rel="close" data-role="button">Exit</a>
+            </div>
+        </div>
+
+        <div data-role="header" id="header">
+            <a id="menu-button" data-icon="bars"  class="ui-btn-left" style="margin-top:10px;" href="#menu2">Menu</a>
+        </div>
+
+        <div data-role="main" class="ui-content">
+            <div id="output">
+
+                <ul  data-role="listview" id="resultView">
+
+                </ul>
+
+
+            </div>
+
+
+
+        </div>
+
+
+        <div data-role="footer">
+            <h3>Alcohol_Addiction@Copyright</h1>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+</body>
+</html>
